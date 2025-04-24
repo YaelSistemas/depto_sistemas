@@ -11,7 +11,7 @@ class Colaboradores extends Controller
      */
     public function index()
     {
-        //
+        return view('modules.colaboradores.index');
     }
 
     /**

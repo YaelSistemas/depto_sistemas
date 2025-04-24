@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('salidas', function (Blueprint $table) {
+        Schema::create('consulta_responsiva', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('colaborador_id')->nullable()->constrained('colaboradores')->nullOnDelete();
+            $table->foreignId('responsiva_id')->constrained('responsiva')->cascadeOnDelete();
+            $table->foreignId('producto_id')->constrained('productos')->cascadeOnDelete();
+            $table->integer('cantidad');
+            $table->float('precio_unitario');
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('salidas');
+        Schema::dropIfExists('consulta_responsiva');
     }
 };

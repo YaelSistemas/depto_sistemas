@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Categorias;
+use App\Http\Controllers\Colaboradores;
 use App\Http\Controllers\ConsultaResponsiva;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\Productos;
 use App\Http\Controllers\Responsiva;
+use App\Http\Controllers\Usuarios;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,13 +21,40 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [AuthController::class, 'index'])->name('login');
-Route::get('/home', [Dashboard::class, 'index'])->name('home');
+//Crear un Usuario Admin, solo usar una vez
+//Route::get('/crear-admin', [AuthController::class, 'crearAdmin']);
 
-route::prefix('responsiva')->group(function () {
+//Login al Sistema
+Route::get('/', [AuthController::class, 'index'])->name('login');
+Route::post('/logear', [AuthController::class, 'logear'])->name('logear');
+
+//Si no estas logueado no puedes dirigirte a Home
+Route::middleware("auth")->group(function () {
+    Route::get('/home', [Dashboard::class, 'index'])->name('home');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+});
+
+
+route::prefix('responsiva')->middleware('auth')->group(function () {
     route::get('/nueva-responsiva', [Responsiva::class, 'index'])->name('responsiva-nueva');
 });
 
-route::prefix('consulta_responsiva')->group(function () {
+route::prefix('consulta_responsiva')->middleware('auth')->group(function () {
     route::get('/consulta-responsiva', [ConsultaResponsiva::class, 'index'])->name('consulta-responsiva');
+});
+
+route::prefix('categorias')->middleware('auth')->group(function () {
+    Route::get('/', [Categorias::class, 'index'])->name('categorias');
+});
+
+route::prefix('productos')->middleware('auth')->group(function () {
+    Route::get('/', [Productos::class, 'index'])->name('productos');
+});
+
+route::prefix('colaboradores')->middleware('auth')->group(function () {
+    Route::get('/', [Colaboradores::class, 'index'])->name('colaboradores');
+});
+
+route::prefix('usuarios')->middleware('auth')->group(function () {
+    Route::get('/', [Usuarios::class, 'index'])->name('usuarios');
 });
