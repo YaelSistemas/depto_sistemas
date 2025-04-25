@@ -18,11 +18,11 @@
               Admnistrar las categorias de nuestros productos.
             </p>
             <!-- Table with stripped rows -->
-            <a href="" class="btn btn-primary">
-              <i class="fa-solid fa-circle-plus"></i> Agregar nueva categoria
+            <a href="{{ route('categorias.create') }}" class="btn btn-primary">
+              <i class="fa-solid fa-circle-plus"></i> Nueva categoria
             </a>
             <hr>
-            <table class="table datatable">
+            <table class="table table-striped table-bordered datatable">
               <thead>
                 <tr>
                   <th class="text-center">Nombre Categoria</th>
@@ -36,10 +36,10 @@
                   <tr class="text-center">
                     <td>{{ $item->nombre }}</td>
                     <td>
-                      <a href="" class="btn btn-warning">
+                      <a href="{{ route("categorias.edit", $item->id) }}" class="btn btn-warning">
                         <i class="fa-solid fa-pen"></i>
                       </a>
-                      <a href="" class="btn btn-danger">
+                      <a href="{{ route("categorias.show", $item->id) }}" class="btn btn-danger">
                         <i class="fa-solid fa-trash"></i>
                       </a>
                     </td>
@@ -56,3 +56,26 @@
 
 </main>
 @endsection
+
+@push('scripts')
+<script>
+  @if(session('success'))
+  Swal.fire({
+    title: 'Exito!',
+    text: '{{ session('success') }}',
+    icon: 'success',
+    confirmButtonText: 'Aceptar'
+  });
+  @endif
+
+  @if(session('error'))
+  Swal.fire({
+    title: 'Exito!',
+    text: '{{ session('success') }}',
+    icon: 'error',
+    confirmButtonText: 'Aceptar'
+  });
+  @endif
+
+  </script>  
+@endpush

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class Usuarios extends Controller
 {
@@ -11,7 +13,9 @@ class Usuarios extends Controller
      */
     public function index()
     {
-        return view('modules.usuarios.index');
+        $titulo = 'Usuarios';
+        $items = User::all();
+        return view('modules.usuarios.index', compact('items', 'titulo'));
     }
 
     /**
@@ -19,7 +23,8 @@ class Usuarios extends Controller
      */
     public function create()
     {
-        //
+        $titulo = 'Usuario Nuevo';
+        return view('modules.usuarios.create', compact('titulo'));
     }
 
     /**
@@ -27,7 +32,15 @@ class Usuarios extends Controller
      */
     public function store(Request $request)
     {
-        //
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'activo' => true,
+            'rol' => $request->rol
+        ]);
+
+        return to_route('usuarios');
     }
 
     /**
@@ -43,7 +56,9 @@ class Usuarios extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $titulo = 'Editar Usuario';
+        $item = User::find($id);
+        return view('modules.usuarios.edit', compact('item', 'titulo'));
     }
 
     /**
@@ -51,7 +66,13 @@ class Usuarios extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $titulo = 'Editar Usuario';
+        $item = User::find($id);
+        $item->name = $request->name;
+        $item->email = $request->email;
+        $item->rol = $request->rol;
+        $item->save();
+        return to_route('usuarios');
     }
 
     /**
@@ -60,5 +81,25 @@ class Usuarios extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function tbody()
+    {
+        $items = User::all();
+        return view('modules.usuarios.tbody', compact('items'));
+    }
+
+    public function estado($id, $estado)
+    {
+        $item = User::find($id);
+        $item->activo = $estado;
+        return $item->save();
+    }
+
+    public function cambio_password($id, $password)
+    {
+        $item = User::find($id);
+        $item->password = Hash::make($password);
+        return $item->save();
     }
 }

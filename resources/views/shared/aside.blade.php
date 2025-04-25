@@ -96,7 +96,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route("usuarios") }}">
-          <i class="bi bi-card-list"></i>
+          <i class="fa-solid fa-users"></i>
           <span>Usuarios</span>
         </a>
       </li><!-- End Usuarios Nav -->

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Categorias extends Controller
 {
@@ -22,7 +24,8 @@ class Categorias extends Controller
      */
     public function create()
     {
-        //
+        $titulo = 'Crear Categoria';
+        return view('modules.categorias.create', compact('titulo'));
     }
 
     /**
@@ -30,7 +33,15 @@ class Categorias extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $item = new Categoria();
+            $item->user_id = Auth::user()->id;
+            $item->nombre = $request->nombre;
+            $item->save();
+            return to_route('categorias')->with('success', 'Categoria Agregada!');
+        } catch (Exception $e) {
+            return to_route('categorias')->with('error', 'No se pudo Guardar!' . $e->getMessage());;
+        }
     }
 
     /**
@@ -38,7 +49,9 @@ class Categorias extends Controller
      */
     public function show(string $id)
     {
-        //
+        $titulo = 'Eliminar Categoria';
+        $item = Categoria::find($id);
+        return view('modules.categorias.show', compact('item', 'titulo'));
     }
 
     /**
@@ -46,7 +59,9 @@ class Categorias extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $titulo = 'Editar Categoria';
+        $item = Categoria::find($id);
+        return view('modules.categorias.edit', compact('item', 'titulo'));
     }
 
     /**
@@ -54,7 +69,14 @@ class Categorias extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $item = Categoria::find($id);
+            $item->nombre = $request->nombre;
+            $item->save();
+            return to_route('categorias')->with('success', 'Categoria Actualizada!');
+        } catch (Exception $e) {
+            return to_route('categorias')->with('error', 'No se pudo Actualizar!' . $e->getMessage());;
+        }
     }
 
     /**
@@ -62,6 +84,12 @@ class Categorias extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $item = Categoria::find($id);
+            $item->delete();
+            return to_route('categorias')->with('success', 'Categoria Eliminada!');
+        } catch (Exception $e) {
+            return to_route('categorias')->with('error', 'No se pudo Eliminar!' . $e->getMessage());;
+        }
     }
 }

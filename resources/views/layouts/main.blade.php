@@ -68,13 +68,28 @@
   <script src="{{ asset('NiceAdmin/assets/vendor/tinymce/tinymce.min.js') }}"></script>
   <script src="{{ asset('NiceAdmin/assets/vendor/php-email-form/validate.js') }}"></script>
 
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
   <!-- Template Main JS FNiceAdmin/ile -->
   <script src="{{ asset('NiceAdmin/assets/js/main.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  @stack('scripts')
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      if (document.querySelector(".datatable")) {
-        new simpleDatatables.DataTable(".datatable");
+      const tabla = document.querySelector(".datatable");
+  
+      if (tabla) {
+        new simpleDatatables.DataTable(tabla, {
+          labels: {
+            placeholder: "Buscar...",
+            perPage: "Mostrar registros por página",
+            noRows: "No hay registros para mostrar",
+            info: "Mostrando a de registros",
+            noResults: "No se encontraron coincidencias"
+          }
+        });
       }
     });
   </script>

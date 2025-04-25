@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Productos;
 use App\Http\Controllers\Responsiva;
 use App\Http\Controllers\Usuarios;
+use App\Models\Categoria;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,8 +44,15 @@ route::prefix('consulta_responsiva')->middleware('auth')->group(function () {
     route::get('/consulta-responsiva', [ConsultaResponsiva::class, 'index'])->name('consulta-responsiva');
 });
 
+//Rutas de Categorias - CRUD
 route::prefix('categorias')->middleware('auth')->group(function () {
     Route::get('/', [Categorias::class, 'index'])->name('categorias');
+    Route::get('/create', [Categorias::class, 'create'])->name('categorias.create');
+    Route::post('/store', [Categorias::class, 'store'])->name('categorias.store');
+    Route::get('/show/{id}', [Categorias::class, 'show'])->name('categorias.show');
+    Route::delete('/destroy/{id}', [Categorias::class, 'destroy'])->name('categorias.destroy');
+    Route::get('/edit/{id}', [Categorias::class, 'edit'])->name('categorias.edit');
+    route::put('/update/{id}', [Categorias::class, 'update'])->name('categorias.update');
 });
 
 route::prefix('productos')->middleware('auth')->group(function () {
@@ -57,4 +65,11 @@ route::prefix('colaboradores')->middleware('auth')->group(function () {
 
 route::prefix('usuarios')->middleware('auth')->group(function () {
     Route::get('/', [Usuarios::class, 'index'])->name('usuarios');
+    Route::get('/create', [Usuarios::class, 'create'])->name('usuarios.create');
+    Route::post('/store', [Usuarios::class, 'store'])->name('usuarios.store');
+    Route::get('/edit/{id}', [Usuarios::class, 'edit'])->name('usuarios.edit');
+    route::put('/update/{id}', [Usuarios::class, 'update'])->name('usuarios.update');
+    Route::get('/tbody', [Usuarios::class, 'tbody'])->name('usuarios.tbody');
+    Route::get('/cambiar-estado/{id}/{estado}', [Usuarios::class, 'estado'])->name('usuarios.estado');
+    Route::get('/cambiar-password/{id}/{password}', [Usuarios::class, 'cambio_password'])->name('usuarios.password');
 });
