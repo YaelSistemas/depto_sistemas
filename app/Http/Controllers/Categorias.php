@@ -38,9 +38,9 @@ class Categorias extends Controller
             $item->user_id = Auth::user()->id;
             $item->nombre = $request->nombre;
             $item->save();
-            return to_route('categorias')->with('success', 'Categoria Agregada!');
+            return to_route('categorias')->with('success', 'Categoria Agregada');
         } catch (Exception $e) {
-            return to_route('categorias')->with('error', 'No se pudo Guardar!' . $e->getMessage());;
+            return to_route('categorias')->with('error', 'No se pudo Guardar' . $e->getMessage());;
         }
     }
 
@@ -73,9 +73,9 @@ class Categorias extends Controller
             $item = Categoria::find($id);
             $item->nombre = $request->nombre;
             $item->save();
-            return to_route('categorias')->with('success', 'Categoria Actualizada!');
+            return to_route('categorias')->with('success', 'Categoria Actualizada');
         } catch (Exception $e) {
-            return to_route('categorias')->with('error', 'No se pudo Actualizar!' . $e->getMessage());;
+            return to_route('categorias')->with('error', 'No se pudo Actualizar' . $e->getMessage());;
         }
     }
 
@@ -87,9 +87,9 @@ class Categorias extends Controller
         try {
             $item = Categoria::find($id);
             $item->delete();
-            return to_route('categorias')->with('success', 'Categoria Eliminada!');
+            return to_route('categorias')->with('success', 'Categoria Eliminada');
         } catch (Exception $e) {
-            return to_route('categorias')->with('error', 'No se pudo Eliminar!' . $e->getMessage());;
+            return to_route('categorias')->with('error', 'No se pudo Eliminar' . $e->getMessage());;
         }
     }
 }

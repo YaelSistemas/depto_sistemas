@@ -6,9 +6,11 @@ use App\Http\Controllers\Colaboradores;
 use App\Http\Controllers\ConsultaResponsiva;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Productos;
+use App\Http\Controllers\Proveedores;
 use App\Http\Controllers\Responsiva;
 use App\Http\Controllers\Usuarios;
 use App\Models\Categoria;
+use App\Models\Proveedor;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,8 +57,26 @@ route::prefix('categorias')->middleware('auth')->group(function () {
     route::put('/update/{id}', [Categorias::class, 'update'])->name('categorias.update');
 });
 
+//Rutas de Productos - CRUD
 route::prefix('productos')->middleware('auth')->group(function () {
     Route::get('/', [Productos::class, 'index'])->name('productos');
+    Route::get('/create', [Productos::class, 'create'])->name('productos.create');
+    Route::post('/store', [Productos::class, 'store'])->name('productos.store');
+    Route::get('/show/{id}', [Productos::class, 'show'])->name('productos.show');
+    Route::delete('/destroy/{id}', [Productos::class, 'destroy'])->name('productos.destroy');
+    Route::get('/edit/{id}', [Productos::class, 'edit'])->name('productos.edit');
+    route::put('/update/{id}', [Productos::class, 'update'])->name('productos.update');
+});
+
+//Rutas de Proveedores - CRUD
+route::prefix('proveedores')->middleware('auth')->group(function () {
+    Route::get('/', [Proveedores::class, 'index'])->name('proveedores');
+    Route::get('/create', [Proveedores::class, 'create'])->name('proveedores.create');
+    Route::post('/store', [Proveedores::class, 'store'])->name('proveedores.store');
+    Route::get('/show/{id}', [Proveedores::class, 'show'])->name('proveedores.show');
+    Route::delete('/destroy/{id}', [Proveedores::class, 'destroy'])->name('proveedores.destroy');
+    Route::get('/edit/{id}', [Proveedores::class, 'edit'])->name('proveedores.edit');
+    route::put('/update/{id}', [Proveedores::class, 'update'])->name('proveedores.update');
 });
 
 route::prefix('colaboradores')->middleware('auth')->group(function () {

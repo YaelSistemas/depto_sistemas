@@ -13,12 +13,17 @@ return new class extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('categoria_id')->constrained('categorias')->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('categoria_id')->constrained('categorias');
+            $table->foreignId('proveedor_id')->constrained('proveedores');
             $table->string('nombre', 50);
-            $table->string('descripcion', 500);
-            $table->integer('cantidad');
-            $table->float('precio');
+            $table->string('descripcion', 500)->nullable();
+            $table->integer('cantidad')->default(0);
+            $table->string('marca', 50)->nullable();
+            $table->string('modelo', 50)->nullable();
+            $table->string('no_serie', 50)->nullable();
+            $table->float('precio')->default(0);
+            $table->boolean('activo')->default(true);
             $table->timestamps();
         });
     }
