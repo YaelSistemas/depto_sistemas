@@ -5,8 +5,10 @@ use App\Http\Controllers\Categorias;
 use App\Http\Controllers\Colaboradores;
 use App\Http\Controllers\ConsultaResponsiva;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\Entradas;
 use App\Http\Controllers\Productos;
 use App\Http\Controllers\Proveedores;
+use App\Http\Controllers\Reportes_productos;
 use App\Http\Controllers\Responsiva;
 use App\Http\Controllers\Usuarios;
 use App\Models\Categoria;
@@ -66,6 +68,12 @@ route::prefix('productos')->middleware('auth')->group(function () {
     Route::delete('/destroy/{id}', [Productos::class, 'destroy'])->name('productos.destroy');
     Route::get('/edit/{id}', [Productos::class, 'edit'])->name('productos.edit');
     route::put('/update/{id}', [Productos::class, 'update'])->name('productos.update');
+    Route::get('/cambiar-estado/{id}/{estado}', [Productos::class, 'estado'])->name('productos.estado');
+});
+
+//Rutas de Reportes - CRUD
+route::prefix('reportes_productos')->middleware('auth')->group(function () {
+    Route::get('/', [Reportes_productos::class, 'index'])->name('reportes_productos');
 });
 
 //Rutas de Proveedores - CRUD
@@ -83,6 +91,7 @@ route::prefix('colaboradores')->middleware('auth')->group(function () {
     Route::get('/', [Colaboradores::class, 'index'])->name('colaboradores');
 });
 
+//Rutas de Usuarios - CRUD
 route::prefix('usuarios')->middleware('auth')->group(function () {
     Route::get('/', [Usuarios::class, 'index'])->name('usuarios');
     Route::get('/create', [Usuarios::class, 'create'])->name('usuarios.create');
@@ -92,4 +101,15 @@ route::prefix('usuarios')->middleware('auth')->group(function () {
     Route::get('/tbody', [Usuarios::class, 'tbody'])->name('usuarios.tbody');
     Route::get('/cambiar-estado/{id}/{estado}', [Usuarios::class, 'estado'])->name('usuarios.estado');
     Route::get('/cambiar-password/{id}/{password}', [Usuarios::class, 'cambio_password'])->name('usuarios.password');
+});
+
+//Rutas de Entradas - CRUD
+route::prefix('entradas')->middleware('auth')->group(function () {
+    Route::get('/', [Entradas::class, 'index'])->name('entradas');
+    Route::get('/create/{id_producto}', [Entradas::class, 'create'])->name('entradas.create');
+    Route::post('/store', [Entradas::class, 'store'])->name('entradas.store');
+    Route::get('/edit/{id}', [Entradas::class, 'edit'])->name('entradas.edit');
+    route::put('/update/{id}', [Entradas::class, 'update'])->name('entradas.update');
+    Route::get('/show/{id}', [Entradas::class, 'show'])->name('entradas.show');
+    Route::delete('/destroy/{id}', [Entradas::class, 'destroy'])->name('entradas.destroy');
 });

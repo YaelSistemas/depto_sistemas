@@ -72,19 +72,19 @@
         success : function(respuesta){
           if (respuesta == 1) {
             Swal.fire({
-              title: 'Exito!',
-              text: 'Cambio de Estado Exitoso!',
+              title: 'Exito',
+              text: 'Cambio de Estado Exitoso',
               icon: 'success',
               confirmButtonText: 'Aceptar'
             });
             recargar_tbody();
           } else {
             Swal.fire({
-              title: 'Fallo!',
-              text: 'No se Llevo a cabo el Cambio!',
+              title: 'Fallo',
+              text: 'No se Llevo a cabo el Cambio',
               icon: 'error',
               confirmButtonText: 'Aceptar'
-  });
+            });
           }
         }
       });

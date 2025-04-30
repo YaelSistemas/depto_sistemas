@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\Imagen;
 use App\Models\Producto;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
@@ -21,9 +22,10 @@ class Productos extends Controller
             'categorias.nombre as nombre_categoria',
             'proveedores.nombre as nombre_proveedor'
         )
-            ->join('categorias', 'productos.categoria_id', '=', 'categorias.id')
-            ->join('proveedores', 'productos.proveedor_id', '=', 'proveedores.id')
+            ->leftJoin('categorias', 'productos.categoria_id', '=', 'categorias.id')
+            ->leftJoin('proveedores', 'productos.proveedor_id', '=', 'proveedores.id')
             ->get();
+
         return view('modules.productos.index', compact('items', 'titulo'));
     }
 
@@ -45,7 +47,7 @@ class Productos extends Controller
     {
         try {
             $item = new Producto();
-            $item->user_id = Auth::user()->id;
+            $item->user_id = Auth::id();
             $item->categoria_id = $request->categoria_id;
             $item->proveedor_id = $request->proveedor_id;
             $item->nombre = $request->nombre;
@@ -54,10 +56,33 @@ class Productos extends Controller
             $item->modelo = $request->modelo;
             $item->no_serie = $request->no_serie;
             $item->save();
-            return to_route('productos')->with('success', 'Producto Creado Exitosamente');
+
+            // Subir imagen si se guardó correctamente el producto
+            if ($item->id && $request->hasFile('imagen')) {
+                if ($this->subir_imagen($request, $item->id)) {
+                    return to_route('productos')->with('success', 'Producto creado y con imagen');
+                } else {
+                    return to_route('productos')->with('warning', 'Producto creado pero sin imagen');
+                }
+            }
+
+            return to_route('productos')->with('success', 'Producto creado sin imagen');
         } catch (\Throwable $th) {
-            return to_route('productos')->with('success', 'Fallo al Crear Producto', $th->getMessage());
+            return to_route('productos')->with('error', 'Error al crear el producto: ' . $th->getMessage());
         }
+    }
+
+    public function subir_imagen($request, $id_producto)
+    {
+        if ($request->hasFile('imagen')) {
+            $rutaImagen = $request->file('imagen')->store('productos', 'public'); // guarda en storage/app/public/productos
+
+            $producto = Producto::find($id_producto);
+            $producto->imagen_producto = $rutaImagen; // guarda "productos/nombre.jpg"
+            return $producto->save();
+        }
+
+        return false;
     }
 
     /**
@@ -123,5 +148,12 @@ class Productos extends Controller
         } catch (\Throwable $th) {
             return to_route('productos')->with('error', 'Fallo al Eliminar Producto' . $th->getMessage());
         }
+    }
+
+    public function estado($id, $estado)
+    {
+        $item = Producto::find($id);
+        $item->activo = $estado;
+        return $item->save();
     }
 }

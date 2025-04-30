@@ -84,7 +84,7 @@
             </a>
           </li>
           <li>
-            <a href="components-accordion.html">
+            <a href="{{ route('reportes_productos') }}">
               <i class="bi bi-circle"></i><span>Reportes de Productos</span>
             </a>
           </li>
@@ -92,7 +92,7 @@
       </li><!-- End Productos Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="{{ route('entradas') }}">
           <i class="bi bi-question-circle"></i>
           <span>Entradas</span>
         </a>

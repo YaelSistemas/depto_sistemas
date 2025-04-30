@@ -49,13 +49,22 @@
                     <td>{{ $item->nombre_categoria }}</td>
                     <td>{{ $item->nombre_proveedor }}</td>
                     <td>{{ $item->nombre }}</td>
-                    <td></td>
+                    <td>
+                      @if ($item->imagen_producto)
+                        <img src="{{ asset('storage/' . $item->imagen_producto) }}" width="80" height="80" alt="{{ $item->nombre }}">
+                        <a href="#" class="badge rounded-pill bg-warning text-dark">
+                          <i class="fa-solid fa-pen"></i>
+                        </a>
+                      @else
+                        <span>Sin imagen</span>
+                      @endif
+                    </td>
                     <td>{{ $item->descripcion }}</td>
                     <td>{{ $item->cantidad }}</td>
                     <td>{{ $item->marca }}</td>
                     <td>{{ $item->modelo }}</td>
                     <td>{{ $item->no_serie }}</td>
-                    <td>{{ $item->precio }}</td>
+                    <td>${{ $item->precio }}</td>
                     <td>
                       <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="{{ $item->id }}" 
@@ -63,7 +72,7 @@
                     </div>
                     </td>
                     <td>
-                      <a href="#" class="btn btn-info">Reabastecer</a>
+                      <a href="{{ route('entradas.create', $item->id) }}" class="btn btn-info">Reabastecer</a>
                     </td>
                     <td>
                       <a href="{{ route('productos.edit', $item->id) }}" class="btn btn-warning">
@@ -86,3 +95,41 @@
 
 </main>
 @endsection
+
+@push('scripts')
+  <script>
+
+    function cambiar_estado(id, estado) {
+      $.ajax({
+        type : "GET",
+        url : "productos/cambiar-estado/" + id + "/" + estado,
+        success : function(respuesta) {
+          if (respuesta == 1) {
+            Swal.fire({
+              title: 'Exito',
+              text: 'Cambio de Estado Exitoso',
+              icon: 'success',
+              confirmButtonText: 'Aceptar'
+            });
+          } else {
+            Swal.fire({
+              title: 'Fallo',
+              text: 'No se Llevo a cabo el Cambio',
+              icon: 'error',
+              confirmButtonText: 'Aceptar'
+            });
+          }
+        }
+      });
+    }
+
+
+    $(document).ready(function() {
+      $('.form-check-input').on("change", function(){
+        let id = $(this).attr("id");
+        let estado = $(this).is(":checked") ? 1 : 0;
+        cambiar_estado(id, estado);
+      });
+    });
+  </script>
+@endpush

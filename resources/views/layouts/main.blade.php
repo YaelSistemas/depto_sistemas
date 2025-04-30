@@ -101,18 +101,24 @@
       const tabla = document.querySelector(".datatable");
   
       if (tabla) {
-        new simpleDatatables.DataTable(tabla, {
-          labels: {
-            placeholder: "Buscar...",
-            perPage: "Mostrar registros por página",
-            noRows: "No hay registros para mostrar",
-            info: "Mostrando a de registros",
-            noResults: "No se encontraron coincidencias"
-          }
-        });
-      }
-    });
-  </script>
+      new simpleDatatables.DataTable(tabla, {
+        labels: {
+          placeholder: "Buscar...",
+          perPage: "Mostrar registros por página",
+          noRows: "No hay registros para mostrar",
+          noResults: "No se encontraron coincidencias",
+          info: "Mostrando {start} a {end} de {rows} registros",
+          page: "Página",
+          pages: "páginas"
+        },
+        pagination: {
+          prev: "Anterior",
+          next: "Siguiente"
+        }
+      });
+    }
+  });
+</script>
   
 </body>
 
