@@ -20,17 +20,17 @@
                 @method("PUT")
             
                 <div class="mb-3">
-                    <label for="name" class="form-label">Nombre del Usuario</label>
+                    <label for="name" class="form-label fw-bold">Nombre del Usuario</label>
                     <input type="text" class="form-control" required name="name" id="name" value="{{ $item->name }}">
                 </div>
             
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label fw-bold">Email</label>
                     <input type="email" name="email" id="email" class="form-control" required value="{{ $item->email }}">
                 </div>
             
                 <div class="mb-3">
-                    <label for="rol" class="form-label">Rol de Usuario</label>
+                    <label for="rol" class="form-label fw-bold">Rol de Usuario</label>
                     <select name="rol" id="rol" class="form-select" required>
                         <option value="">Selecciona el Rol</option>
                         <option value="admin" {{ $item->rol == 'admin' ? 'selected' : '' }}>Admin</option>

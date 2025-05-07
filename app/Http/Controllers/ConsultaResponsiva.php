@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Responsiva;
 use Illuminate\Http\Request;
 
 class ConsultaResponsiva extends Controller
@@ -11,7 +12,10 @@ class ConsultaResponsiva extends Controller
      */
     public function index()
     {
-        return view('modules.consulta_responsiva.index');
+        $titulo = 'Consulta Responsiva';
+        $responsivas = Responsiva::with(['producto', 'colaborador'])->get();
+
+        return view('modules.consulta_responsiva.index', compact('titulo', 'responsivas'));
     }
 
     /**

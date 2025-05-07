@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('responsiva', function (Blueprint $table) {
+        Schema::create('empresas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('colaborador_id')->nullable()->constrained('colaboradores')->nullOnDelete();
+            $table->unsignedBigInteger('user_id');
+            $table->string('nombre');
             $table->timestamps();
+
+            // clave foránea
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('responsiva');
+        Schema::dropIfExists('empresas');
     }
 };

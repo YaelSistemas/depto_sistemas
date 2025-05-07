@@ -58,6 +58,9 @@
                 <label for="no_serie">No. Serie</label>
                 <input type="text" class="form-control" required name="no_serie" id="no_serie" value="{{ $item->no_serie }}">
 
+                <label for="cantidad">Cantidad</label>
+                <input type="number" class="form-control" name="cantidad" id="cantidad" value="{{ $item->cantidad }}" required>
+
                 <button class="btn btn-warning mt-3">Actualizar</button>
                 <a href="{{ route("productos")}}" class="btn btn-info mt-3">Cancelar</a>
             </form>

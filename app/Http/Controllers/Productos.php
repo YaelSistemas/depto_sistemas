@@ -8,6 +8,7 @@ use App\Models\Producto;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class Productos extends Controller
 {
@@ -55,6 +56,7 @@ class Productos extends Controller
             $item->marca = $request->marca;
             $item->modelo = $request->modelo;
             $item->no_serie = $request->no_serie;
+            $item->cantidad = $request->cantidad;
             $item->save();
 
             // Subir imagen si se guardó correctamente el producto
@@ -83,6 +85,27 @@ class Productos extends Controller
         }
 
         return false;
+    }
+
+    public function cambiarImagen(Request $request)
+    {
+        $request->validate([
+            'producto_id' => 'required|exists:productos,id',
+            'nueva_imagen' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+        ]);
+
+        $producto = Producto::findOrFail($request->producto_id);
+
+        // eliminar imagen anterior si existe
+        if ($producto->imagen_producto && Storage::disk('public')->exists($producto->imagen_producto)) {
+            Storage::disk('public')->delete($producto->imagen_producto);
+        }
+
+        $ruta = $request->file('nueva_imagen')->store('productos', 'public');
+        $producto->imagen_producto = $ruta;
+        $producto->save();
+
+        return redirect()->route('productos')->with('success', 'Imagen actualizada correctamente.');
     }
 
     /**
@@ -129,6 +152,7 @@ class Productos extends Controller
             $item->marca = $request->marca;
             $item->modelo = $request->modelo;
             $item->no_serie = $request->no_serie;
+            $item->cantidad = $request->cantidad;
             $item->save();
             return to_route('productos')->with('success', 'Producto Actualizado Exitosamente');
         } catch (\Throwable $th) {

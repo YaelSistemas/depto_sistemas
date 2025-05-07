@@ -17,7 +17,7 @@
             
             <form action="{{ route("categorias.store") }}" method="POST">
                 @csrf
-                <label for="nombre">Nombre de la Categoria</label>
+                <label for="nombre" class="fw-bold">Nombre de la Categoria</label>
                 <input type="text" class="form-control" required name="nombre" id="nombre">
                 <button class="btn btn-primary mt-3">Guardar</button>
                 <a href="{{ route("categorias")}}" class="btn btn-info mt-3">Cancelar</a>

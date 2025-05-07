@@ -12,11 +12,11 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Salidas</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="fa-solid fa-arrow-right-from-bracket"></i><span>Salidas</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route("responsiva-nueva") }}">
+            <a href="{{ route("responsivas.index") }}">
               <i class="bi bi-circle"></i><span>Responsiva</span>
             </a>
           </li>
@@ -75,7 +75,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#productos-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Productos</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="fa-solid fa-bag-shopping"></i><span>Productos</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="productos-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
@@ -93,30 +93,57 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('entradas') }}">
-          <i class="bi bi-question-circle"></i>
+          <i class="fa-solid fa-cart-shopping"></i>
           <span>Entradas</span>
         </a>
       </li><!-- End Categorias Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route("categorias") }}">
-          <i class="bi bi-question-circle"></i>
+          <i class="fa-solid fa-tags"></i>
           <span>Categorias</span>
         </a>
       </li><!-- End Categorias Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route("proveedores") }}">
-          <i class="bi bi-question-circle"></i>
+          <i class="fa-solid fa-truck-field"></i>
           <span>Proveedores</span>
         </a>
       </li><!-- End Proveedores Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route("colaboradores") }}">
-          <i class="bi bi-envelope"></i>
+          <i class="fa-solid fa-users-gear"></i>
           <span>Colaboradores</span>
         </a>
+      </li><!-- End Colaboradores Nav -->
+  
+
+      <li class="nav-heading">Admin</li>
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#gestionar_colaboradores-nav" data-bs-toggle="collapse" href="#">
+          <i class="fa-solid fa-database"></i><span>Gestionar Datos</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="gestionar_colaboradores-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route("unidades") }}">
+              <i class="bi bi-circle"></i><span>Unidades de Servicio</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route("areas") }}">
+              <i class="bi bi-circle"></i><span>Área / Departamento</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route("empresas") }}">
+              <i class="bi bi-circle"></i><span>Empresa</span>
+            </a>
+          </li>
+        </ul>
       </li><!-- End Colaboradores Nav -->
 
       <li class="nav-item">

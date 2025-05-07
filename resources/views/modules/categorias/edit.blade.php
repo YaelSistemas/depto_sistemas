@@ -18,7 +18,7 @@
             <form action="{{ route("categorias.update", $item->id) }}" method="POST">
                 @csrf
                 @method("PUT")
-                <label for="nombre">Nombre de la Categoria</label>
+                <label for="nombre" class="fw-bold">Nombre de la Categoria</label>
                 <input type="text" class="form-control" required name="nombre" id="nombre" value="{{ $item->nombre }}">
                 <button class="btn btn-warning mt-3">Actualizar</button>
                 <a href="{{ route("categorias")}}" class="btn btn-info mt-3">Cancelar</a>

@@ -18,7 +18,7 @@
             <form action="{{ route("categorias.destroy", $item->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
-                <label for="nombre">Nombre de la Categoria</label>
+                <label for="nombre" class="fw-bold">Nombre de la Categoria</label>
                 <input type="text" class="form-control" readonly name="nombre" id="nombre" value="{{ $item->nombre }}">
                 <button class="btn btn-danger mt-3">Eliminar</button>
                 <a href="{{ route("categorias")}}" class="btn btn-info mt-3">Cancelar</a>

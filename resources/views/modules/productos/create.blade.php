@@ -48,6 +48,9 @@
                 <label for="no_serie">No. Serie</label>
                 <input type="text" class="form-control" required name="no_serie" id="no_serie">
 
+                <label for="cantidad">Cantidad</label>
+                <input type="number" class="form-control" name="cantidad" id="cantidad" required>
+
                 <label for="imagen">Imagen</label>
                 <input type="file" id="imagen" name="imagen" class="form-control">
 

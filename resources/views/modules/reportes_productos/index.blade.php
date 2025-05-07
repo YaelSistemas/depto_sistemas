@@ -19,7 +19,7 @@
             </p>
             <!-- Table with stripped rows -->
             
-            <table class="table table-striped table-bordered datatable">
+            <table class="table  table-bordered datatable">
               <thead>
                 <tr>
                   <th class="text-center">Categoria</th>
@@ -41,13 +41,19 @@
                     <td>{{ $item->nombre_categoria }}</td>
                     <td>{{ $item->nombre_proveedor }}</td>
                     <td>{{ $item->nombre }}</td>
-                    <td></td>
+                    <td>
+                      @if ($item->imagen_producto)
+                        <img src="{{ asset('storage/' . $item->imagen_producto) }}" alt="{{ $item->nombre }}" width="80" height="80">
+                      @else
+                        <span>Sin imagen</span>
+                      @endif
+                    </td>
                     <td>{{ $item->descripcion }}</td>
                     <td>{{ $item->cantidad }}</td>
                     <td>{{ $item->marca }}</td>
                     <td>{{ $item->modelo }}</td>
                     <td>{{ $item->no_serie }}</td>
-                    <td>{{ $item->precio }}</td>
+                    <td>${{ $item->precio }}</td>
                     
                   </tr>
                   @endforeach

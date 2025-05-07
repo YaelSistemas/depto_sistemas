@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('colaboradores', function (Blueprint $table) {
+        Schema::create('consulta_responsiva', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->string('nombre');
-            $table->string('apellido');
-            $table->string('empresa');
-            $table->string('unidad_servicio');
+            $table->foreignId('responsiva_id')->constrained('responsivas')->cascadeOnDelete();
+            $table->foreignId('producto_id')->constrained('productos')->cascadeOnDelete();
+            $table->integer('cantidad');
+            $table->float('precio_unitario');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('colaboradores');
+        Schema::dropIfExists('consulta_responsiva');
     }
 };
