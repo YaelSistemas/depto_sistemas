@@ -1,54 +1,20 @@
 <!-- ======= Header ======= -->
-<header id="header" class="header fixed-top d-flex align-items-center">
+<header id="header" class="header fixed-top d-flex align-items-center justify-content-between px-3 shadow-sm" style="height: 60px; background-color: #fff; border-bottom: 1px solid #dee2e6;">
+  <div class="d-flex align-items-center flex-grow-1">
+    <button class="btn p-0 me-3 border-0 bg-transparent toggle-sidebar-btn" type="button" aria-label="Toggle sidebar">
+      <i class="bi bi-list fs-4"></i>
+    </button>
+    <a href="{{ route('home') }}" class="d-flex align-items-center text-decoration-none">
+      <img src="{{ asset('NiceAdmin/assets/img/GrupoVysisaLogo.png') }}" alt="Logo" height="40" class="me-2">
+      <span class="fw-bold text-dark d-none d-sm-inline">Depto Sistemas</span>
+    </a>
+  </div>
 
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="{{ route("home") }}" class="logo d-flex align-items-center">
-        <img src="{{ asset('NiceAdmin/assets/img/GrupoVysisaLogo.png') }}" alt="">
-        <span class="d-none d-lg-block">Depto Sistemas</span>
-      </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
-
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
-
-        <li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{{ asset('NiceAdmin/assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6>{{ Auth::user()->name }}</h6>
-              <span>{{ Auth::user()->rol }}</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="{{ route("logout") }}">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Cerrar Sesion</span>
-              </a>
-            </li>
-
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
-    </nav><!-- End Icons Navigation -->
-
-  </header><!-- End Header -->
+  <div class="d-flex align-items-center text-end flex-shrink-0">
+    <div class="d-none d-sm-flex flex-column me-3 text-dark">
+      <span class="fw-bold">{{ Auth::user()->name }}</span>
+      <small class="text-muted">{{ Auth::user()->rol }}</small>
+    </div>
+    <a href="{{ route('logout') }}" class="btn btn-sm btn-outline-danger">Cerrar Sesión</a>
+  </div>
+</header>

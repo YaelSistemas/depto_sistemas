@@ -33,6 +33,8 @@ class Colaboradores extends Controller
 
         $relaciones = [];
 
+        $puestos = $this->obtenerListaDePuestos(); // <- Aquí defines los puestos
+
         $areas = AreaDepartamento::with('unidad.empresa')->get();
 
         foreach ($areas as $area) {
@@ -63,7 +65,7 @@ class Colaboradores extends Controller
             ];
         }
 
-        return view('modules.colaboradores.create', compact('empresas', 'relaciones'));
+        return view('modules.colaboradores.create', compact('empresas', 'relaciones', 'puestos'));
     }
 
     /**
@@ -114,6 +116,7 @@ class Colaboradores extends Controller
         $empresas = Empresa::orderBy('nombre')->get();
 
         $relaciones = [];
+        $puestos = $this->obtenerListaDePuestos();
 
         $areas = AreaDepartamento::with('unidad.empresa')->get();
         foreach ($areas as $area) {
@@ -141,7 +144,7 @@ class Colaboradores extends Controller
             ];
         }
 
-        return view('modules.colaboradores.edit', compact('colaborador', 'empresas', 'relaciones'));
+        return view('modules.colaboradores.edit', compact('colaborador', 'empresas', 'relaciones', 'puestos'));
     }
 
     /**
@@ -205,5 +208,84 @@ class Colaboradores extends Controller
     {
         $areas = AreaDepartamento::where('unidad_servicio_id', $unidadId)->get();
         return response()->json($areas);
+    }
+
+    private function obtenerListaDePuestos()
+    {
+        return [
+            "Analista de Compras",
+            "Analista de Contabilidad",
+            "Analista de Nominas",
+            "Asesor Tecnico",
+            "Asistente de Desarrollo de Capital Humano",
+            "Asistente de Direccion",
+            "Asistente de Marketing",
+            "Asistente de Operaciones",
+            "Asistente de SGI",
+            "Asistente de Tesoreria",
+            "Auxiliar Admon de Ingenieria",
+            "Auxiliar Vulcanizador 1",
+            "Auxiliar Vulcanizador 2",
+            "Auxiliar Vulcanizador 3",
+            "Auxiliar Administrativo",
+            "Auxiliar Comercial",
+            "Auxiliar de Almacen",
+            "Auxiliar de Cobranza",
+            "Auxiliar de Contabilidad",
+            "Auxiliar de Embarques",
+            "Auxiliar de Facturacion",
+            "Auxiliar de Seguridad",
+            "Ayudante Comercial",
+            "Ayudante de Intendencia",
+            "Ayudante General",
+            "Chofer",
+            "Coordinador Comercial",
+            "Coordinador de Almacen",
+            "Coordinador de Calidad",
+            "Coordinador de Ingenieria",
+            "Coordinador de Seguridad",
+            "Coordinador de Servicios Generales",
+            "Coordinador de Sistemas",
+            "Coordinador de Taller",
+            "Director Comercial",
+            "Director de Finanzas",
+            "Director General",
+            "Director Operativo",
+            "Directora de Admon y Finanzas",
+            "Ejecutivo de Atencion a Clientes",
+            "Gerente de Abastos",
+            "Gerente de Contabilidad",
+            "Gerente de Filial",
+            "Gerente de Ventas",
+            "Ingeniero de Campo",
+            "Ingeniero de Sistemas",
+            "Instrumentista",
+            "Lider de Capital Humano",
+            "Lider de Zona",
+            "Mantenimiento",
+            "Practicante",
+            "Practicante de Contabilidad",
+            "Practicante de Ingenieria",
+            "Promotor de Linea",
+            "Promotor de Marca",
+            "Responsable de Abastos",
+            "Responsable de Ingenieria",
+            "Responsable de Marketing",
+            "Responsable de Mejora Continua",
+            "Responsable de Proteccion de Superficies",
+            "Responsable de Sistemas",
+            "Responsable de Taller",
+            "Responsable de Tesoreria",
+            "Responsable de SGI",
+            "Secretaria",
+            "Supervisor 1",
+            "Supervisor 2",
+            "Supervisor 3",
+            "Supervisor de Produccion de Pasamanos",
+            "Supervisor de Seguridad",
+            "Vulcanizador 1",
+            "Vulcanizador 2",
+            "Vulcanizador 3"
+        ];
     }
 }

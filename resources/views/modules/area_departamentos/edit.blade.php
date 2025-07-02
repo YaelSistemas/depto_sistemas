@@ -6,12 +6,12 @@
 <main id="main" class="main">
   <div class="pagetitle">
     <h1>Área / Departamento</h1>
-  </div><!-- End Page Title -->
+  </div>
 
   <section class="section">
     <div class="row">
-      <div class="col-lg-12">
-        <div class="card">
+      <div class="col-lg-8 offset-lg-2">
+        <div class="card shadow-sm">
           <div class="card-body">
             <h5 class="card-title">Editar Área / Departamento</h5>
 
@@ -20,7 +20,7 @@
               @method("PUT")
 
               <div class="mb-3">
-                <label for="nombre" class="fw-bold">Nombre del Área / Departamento</label>
+                <label for="nombre" class="form-label fw-bold">Nombre del Área / Departamento</label>
                 <input type="text" class="form-control" required name="nombre" id="nombre" value="{{ $item->nombre }}">
               </div>
 
@@ -48,8 +48,10 @@
                 </select>
               </div>
 
-              <button class="btn btn-warning mt-3">Actualizar</button>
-              <a href="{{ route('areas') }}" class="btn btn-info mt-3">Cancelar</a>
+              <div class="text-end">
+                <a href="{{ route('areas') }}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-warning">Actualizar</button>
+              </div>
             </form>
 
           </div>

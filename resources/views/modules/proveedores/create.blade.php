@@ -6,37 +6,52 @@
 <main id="main" class="main">
   <div class="pagetitle">
     <h1>Agregar Proveedor</h1>
-    
   </div><!-- End Page Title -->
+
   <section class="section">
     <div class="row">
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-body">
+      <div class="col-lg-8 offset-lg-2">
+        <div class="card shadow-sm">
+          <div class="card-body pt-4">
             <h5 class="card-title">Agregar Nuevo Proveedor</h5>
-            
+
             <form action="{{ route('proveedores.store') }}" method="POST">
-                @csrf
-                <label for="nombre">Nombre</label>
+              @csrf
+
+              <div class="mb-3">
+                <label for="nombre" class="form-label fw-bold">Nombre</label>
                 <input type="text" class="form-control" required name="nombre" id="nombre">
+              </div>
 
-                <label for="telefono">Telefono</label>
+              <div class="mb-3">
+                <label for="telefono" class="form-label fw-bold">Teléfono</label>
                 <input type="text" class="form-control" required name="telefono" id="telefono">
+              </div>
 
-                <label for="email">Email</label>
+              <div class="mb-3">
+                <label for="email" class="form-label fw-bold">Email</label>
                 <input type="email" class="form-control" required name="email" id="email">
+              </div>
 
-                <label for="ubicacion">Ubicacion</label>
+              <div class="mb-3">
+                <label for="ubicacion" class="form-label fw-bold">Ubicación</label>
                 <input type="text" class="form-control" required name="ubicacion" id="ubicacion">
+              </div>
 
-                <label for="sitio_web">Sitio Web</label>
+              <div class="mb-3">
+                <label for="sitio_web" class="form-label fw-bold">Sitio Web</label>
                 <input type="text" class="form-control" required name="sitio_web" id="sitio_web">
+              </div>
 
-                <label for="notas">Notas</label>
-                <textarea name="notas" id="notas" cols="30" rows="10" class="form-control"></textarea>
+              <div class="mb-3">
+                <label for="notas" class="form-label fw-bold">Notas</label>
+                <textarea name="notas" id="notas" rows="4" class="form-control"></textarea>
+              </div>
 
-                <button class="btn btn-primary mt-3">Guardar</button>
-                <a href="{{ route("proveedores")}}" class="btn btn-info mt-3">Cancelar</a>
+              <div class="text-end mt-4">
+                <button class="btn btn-primary">Guardar</button>
+                <a href="{{ route('proveedores') }}" class="btn btn-secondary">Cancelar</a>
+              </div>
             </form>
 
           </div>
@@ -44,6 +59,5 @@
       </div>
     </div>
   </section>
-
 </main>
 @endsection

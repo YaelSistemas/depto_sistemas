@@ -6,12 +6,12 @@
 <main id="main" class="main">
   <div class="pagetitle">
     <h1>Área / Departamento</h1>
-  </div><!-- End Page Title -->
+  </div>
 
   <section class="section">
     <div class="row">
-      <div class="col-lg-12">
-        <div class="card">
+      <div class="col-lg-8 offset-lg-2">
+        <div class="card shadow-sm">
           <div class="card-body">
             <h5 class="card-title">Agregar Nueva Área / Departamento</h5>
 
@@ -24,8 +24,8 @@
               </div>
 
               <div class="mb-3">
-                <label for="unidad_servicio_id" class="fw-bold">Unidad de Servicio</label>
-                <select class="form-control" name="unidad_servicio_id" id="unidad_servicio_id" required>
+                <label for="unidad_servicio_id" class="form-label fw-bold">Unidad de Servicio</label>
+                <select class="form-select" name="unidad_servicio_id" id="unidad_servicio_id" required>
                   <option value="">Selecciona una unidad</option>
                   @foreach($unidades as $unidad)
                     <option value="{{ $unidad->id }}" data-empresa="{{ $unidad->empresa->id }}">
@@ -36,8 +36,8 @@
               </div>
 
               <div class="mb-3">
-                <label for="empresa_id" class="fw-bold">Empresa</label>
-                <select class="form-control" name="empresa_id" id="empresa_id" required>
+                <label for="empresa_id" class="form-label fw-bold">Empresa</label>
+                <select class="form-select" name="empresa_id" id="empresa_id" required>
                   <option value="">Selecciona una empresa</option>
                   @foreach($empresas as $empresa)
                     <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
@@ -45,8 +45,10 @@
                 </select>
               </div>
 
-              <button class="btn btn-primary mt-3">Guardar</button>
-              <a href="{{ route('areas') }}" class="btn btn-info mt-3">Cancelar</a>
+              <div class="text-end">
+                <a href="{{ route('areas') }}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
             </form>
 
           </div>
@@ -56,6 +58,7 @@
   </section>
 </main>
 
+@push('scripts')
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const unidadSelect = document.getElementById('unidad_servicio_id');
@@ -71,5 +74,6 @@
     });
   });
 </script>
+@endpush
 
 @endsection

@@ -1,13 +1,16 @@
 <?php
 
 use App\Http\Controllers\Areas_Departamentos;
+use App\Http\Controllers\Asignaciones;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Categorias;
 use App\Http\Controllers\Colaboradores;
+use App\Http\Controllers\ConsultaEntregaCartuchos;
 use App\Http\Controllers\ConsultaResponsiva;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Empresas;
 use App\Http\Controllers\Entradas;
+use App\Http\Controllers\EntregaCartuchos;
 use App\Http\Controllers\Productos;
 use App\Http\Controllers\Proveedores;
 use App\Http\Controllers\Reportes_productos;
@@ -37,18 +40,55 @@ Route::post('/logear', [AuthController::class, 'logear'])->name('logear');
 //Si no estas logueado no puedes dirigirte a Home
 Route::middleware("auth")->group(function () {
     Route::get('/home', [Dashboard::class, 'index'])->name('home');
+    Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-
+//Rutas de Responsivas - CRUD
 Route::prefix('responsiva')->middleware('auth')->group(function () {
     Route::get('/nueva-responsiva', [Responsivas::class, 'index'])->name('responsivas.index');
+    Route::get('/responsivas/create', [Responsivas::class, 'create'])->name('responsivas.create');
     Route::post('/responsivas/store', [Responsivas::class, 'store'])->name('responsivas.store');
+    Route::get('/responsivas/{id}', [Responsivas::class, 'show'])->name('responsivas.show');
+    Route::get('/{id}/edit', [Responsivas::class, 'edit'])->name('responsivas.edit');
+    Route::put('/{id}', [Responsivas::class, 'update'])->name('responsivas.update');
+    Route::get('responsivas/pdf/{id}', [Responsivas::class, 'verPdf'])->name('responsivas.pdf');
+    Route::get('responsivas/{id}/ver', [Responsivas::class, 'ver'])->name('responsivas.ver');
+    //Rutas de Transporte de Responsivas
+    Route::get('responsivas/{id}/transporte/create', [Responsivas::class, 'createTransporte'])->name('responsivas.transporte.create');
+    Route::post('responsivas/{id}/transporte', [Responsivas::class, 'storeTransporte'])->name('responsivas.transporte.store');
+    Route::get('/responsivas/{id}/transporte/show', [Responsivas::class, 'showTransporte'])->name('responsivas.transporte.show');
+    Route::get('{id}/transporte/edit', [Responsivas::class, 'editTransporte'])->name('responsivas.transporte.edit');
+    Route::put('{id}/transporte/update', [Responsivas::class, 'updateTransporte'])->name('responsivas.transporte.update');
+    //Rutas de Firmas de Responsivas
+    Route::put('/responsivas/{id}/firmar', [Responsivas::class, 'firmar'])->name('responsivas.firmar');
+    Route::put('/responsivas/transporte/{id}/firmar', [Responsivas::class, 'firmarTransportista'])->name('responsivas.transporte.firmar');
 });
 
+//Rutas de Entrega de Cartuchos - CRUD
+Route::prefix('entrega_cartuchos')->middleware('auth')->group(function () {
+    Route::get('/', [EntregaCartuchos::class, 'index'])->name('entrega_cartuchos.index');
+    Route::get('/create', [EntregaCartuchos::class, 'create'])->name('entrega_cartuchos.create');
+    Route::post('/store', [EntregaCartuchos::class, 'store'])->name('entrega_cartuchos.store');
+    Route::get('/{id}/ver', [EntregaCartuchos::class, 'ver'])->name('entrega_cartuchos.ver'); // vista individual
+    Route::get('/{id}', [EntregaCartuchos::class, 'show'])->name('entrega_cartuchos.show');
+    Route::get('/{id}/edit', [EntregaCartuchos::class, 'edit'])->name('entrega_cartuchos.edit');
+    Route::put('/{id}', [EntregaCartuchos::class, 'update'])->name('entrega_cartuchos.update');
+    Route::get('/pdf/{id}', [EntregaCartuchos::class, 'pdf'])->name('entrega_cartuchos.pdf');
+});
 
+Route::prefix('asignaciones')->middleware('auth')->group(function () {
+    Route::get('/', [Asignaciones::class, 'index'])->name('asignaciones.index');
+});
+
+//Rutas de Consulta de Responsiva - CRUD
 route::prefix('consulta_responsiva')->middleware('auth')->group(function () {
     route::get('/consulta-responsiva', [ConsultaResponsiva::class, 'index'])->name('consulta-responsiva');
+});
+
+//Rutas de Consulta de Responsiva - CRUD
+route::prefix('consulta_entrega_cartuchos')->middleware('auth')->group(function () {
+    route::get('/consulta_entrega_cartuchos', [ConsultaEntregaCartuchos::class, 'index'])->name('consulta_entrega_cartuchos');
 });
 
 //Rutas de Categorias - CRUD
@@ -73,7 +113,14 @@ route::prefix('productos')->middleware('auth')->group(function () {
     route::put('/update/{id}', [Productos::class, 'update'])->name('productos.update');
     Route::get('/cambiar-estado/{id}/{estado}', [Productos::class, 'estado'])->name('productos.estado');
     Route::post('/productos/cambiar-imagen', [Productos::class, 'cambiarImagen'])->name('productos.cambiar.imagen');
+    Route::get('/productos/ordenes-facturas', [Productos::class, 'verOrdenesConFacturas'])->name('productos.ordenes_facturas');
 });
+
+// Ruta para limpiar documentos previos al crear otro producto
+Route::get('/productos/create/limpiar-docs', function () {
+    session()->forget(['orden_compra_ids', 'factura_ids', 'fecha_compra_guardada']);
+    return redirect()->route('productos.create');
+})->middleware('auth')->name('productos.create.limpiar_docs');
 
 //Rutas de Reportes - CRUD
 route::prefix('reportes_productos')->middleware('auth')->group(function () {

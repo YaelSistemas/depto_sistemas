@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="width=device-width, initial-scale=0.3, maximum-scale=1.0" name="viewport">
 
   <title>@yield('titulo')</title>
   <meta content="" name="description">
@@ -48,6 +48,37 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
+
+<style>
+  .main {
+    margin-left: 240px;
+    transition: margin-left 0.3s ease;
+  }
+
+  body.toggle-sidebar .main {
+    margin-left: 70px;
+  }
+
+  @media (max-width: 991px) {
+    .main {
+      margin-left: 0 !important;
+    }
+
+    body.toggle-sidebar .main {
+      margin-left: 0 !important;
+    }
+
+    .dt-buttons {
+      display: none !important;
+    }
+  }
+
+  .main > .container,
+  .main > .row,
+  .main > .card {
+    width: 100%;
+  }
+</style>
 
 <body>
 
@@ -96,29 +127,29 @@
 
   <script>
     $('.datatable').DataTable({
+      pageLength: 25,
+      lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "Todos"]],
       layout: {
         topStart: {
           buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
         }
       },
       language: {
-        "decimal": "",
-        "emptyTable": "No hay información",
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-        "infoPostFix": "",
-        "thousands": ",",
-        "lengthMenu": "Mostrar _MENU_ Entradas",
-        "loadingRecords": "Cargando...",
-        "processing": "Procesando...",
-        "search": "Buscar:",
-        "zeroRecords": "Sin resultados encontrados",
-        "paginate": {
-          "first": "Primero",
-          "last": "Ultimo",
-          "next": "Siguiente",
-          "previous": "Anterior"
+        decimal: "",
+        emptyTable: "No hay información",
+        info: "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+        infoEmpty: "Mostrando 0 to 0 of 0 Entradas",
+        infoFiltered: "(Filtrado de _MAX_ total entradas)",
+        lengthMenu: "Mostrar _MENU_ Entradas",
+        loadingRecords: "Cargando...",
+        processing: "Procesando...",
+        search: "Buscar:",
+        zeroRecords: "Sin resultados encontrados",
+        paginate: {
+          first: "Primero",
+          last: "Ultimo",
+          next: "Siguiente",
+          previous: "Anterior"
         }
       }
     });
@@ -170,6 +201,32 @@ Swal.fire({
   });
 </script> -->
   
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.querySelector('.toggle-sidebar-btn');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('toggle-sidebar');
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.querySelector('.toggle-sidebar-btn');
+    const body = document.body;
+    const sidebar = document.getElementById('sidebar');
+
+    if (toggleBtn && sidebar) {
+      toggleBtn.addEventListener('click', () => {
+        body.classList.toggle('toggle-sidebar');
+        sidebar.classList.toggle('collapsed');
+      });
+    }
+  });
+</script>
+
 </body>
 
 </html>

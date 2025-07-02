@@ -3,6 +3,7 @@
 @section('titulo', $titulo)
 
 @section('contenido')
+
 <main id="main" class="main">
   <div class="pagetitle">
     <h1>Áreas / Departamentos</h1>
@@ -15,7 +16,6 @@
           <div class="card-body">
             <h5 class="card-title">Administrar Áreas / Departamentos</h5>
             <p>Gestiona las áreas o departamentos disponibles en el sistema.</p>
-            
             <a href="{{ route('areas.create') }}" class="btn btn-primary">
               <i class="fa-solid fa-circle-plus"></i> Nueva Área / Departamento
             </a>
@@ -55,4 +55,5 @@
     </div>
   </section>
 </main>
+
 @endsection
